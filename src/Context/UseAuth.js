@@ -34,6 +34,7 @@ export const UserProvider = ({ children }) => {
     });
 
     setToken(null);
+    localStorage.setItem('authState', false);
     navigate('/login');
   };
 

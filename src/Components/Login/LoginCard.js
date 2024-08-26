@@ -34,19 +34,23 @@ function LoginTab() {
       const response = await login(json);
       if (response.status === 400) {
         setLoginError(true);
+        localStorage.setItem('authState', false);
         setAlertText('Wrong Username/Password');
       } else if (response.status === 200) {
         const responseText = await response.text();
         setToken(responseText);
+        localStorage.setItem('authState', true);
         navigate('/home');
       } else {
         setLoginError(true);
+        localStorage.setItem('authState', false);
         setAlertText('Server Error');
       }
     } catch (error) {
       console.error(error);
       setLoginError(true);
       setAlertText('Network Error');
+      localStorage.setItem('authState', false);
     } finally {
       hideLoading();
     }

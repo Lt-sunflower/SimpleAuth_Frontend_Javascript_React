@@ -5,7 +5,9 @@ import { useAuth } from '../../Context/UseAuth';
 const SecuredRoute = () => {
   const { token } = useAuth();
   let auth = { token: token };
-  return auth.token === null || auth.token === '' ? <Navigate to="/login" /> : <Outlet />;
+  let storedAuthState = localStorage.getItem('authState');
+
+  return storedAuthState === 'true' || (auth.token && auth.token !== '') ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default SecuredRoute;
