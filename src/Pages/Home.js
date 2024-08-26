@@ -8,10 +8,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContentText from '@mui/material/DialogContentText';
+import { useLoading } from '../Context/UseLoading';
 
 const Home = () => {
   const { logout } = useAuth();
   const { getWithAuth } = useApiService();
+  const { showLoading, hideLoading } = useLoading();
 
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
@@ -24,6 +26,7 @@ const Home = () => {
   };
 
   const auth = async () => {
+    showLoading();
     try {
       const response = await getWithAuth('/user/test');
 
@@ -36,6 +39,8 @@ const Home = () => {
       }
     } catch (error) {
       throw error;
+    } finally {
+      hideLoading();
     }
   };
 
