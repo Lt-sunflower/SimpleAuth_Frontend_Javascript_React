@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Paper, Box, Grid } from '@mui/material';
 import LoginTabs from './Tabs';
 
 export default function SignInSide() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedAuthState = localStorage.getItem('authState');
+    if (storedAuthState === 'true') {
+      navigate('/home');
+    }
+  }, [navigate]);
+
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       <Grid
